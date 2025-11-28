@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "CadastrodeTarefas (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "CadastrodeTarefas (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
