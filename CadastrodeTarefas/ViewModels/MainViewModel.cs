@@ -24,16 +24,16 @@ namespace TodoApp.ViewModels
             }
         }
 
-        public RelayComand AdicionarTarefaCommand { get; }
-        public RelayComand ExcluirCommand { get; }
-        public RelayComand AlternarConcluidaCommand { get; }
+        public RelayCommand AdicionarTarefaCommand { get; }
+        public RelayCommand ExcluirCommand { get; }
+        public RelayCommand AlternarConcluidaCommand { get; }
 
         public MainViewModel()
         {
             _db = new BandoDeDadosService("tarefa.db");
-            AdicionarTarefaCommand = new RelayComand(_ => Adicionar());
-            ExcluirCommand = new RelayComand(t => Excluir((int)t));
-            AlternarConcluidaCommand = new RelayComand(t => Alternar((Tarefa)t));
+            AdicionarTarefaCommand = new RelayCommand(_ => Adicionar());
+            ExcluirCommand = new RelayCommand(t => Excluir((int)t));
+            AlternarConcluidaCommand = new RelayCommand(t => Alternar((Tarefa)t));
             Carregar();
         }
 

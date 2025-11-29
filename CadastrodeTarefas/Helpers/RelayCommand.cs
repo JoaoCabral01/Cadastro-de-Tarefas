@@ -3,11 +3,11 @@ using System.Windows.Input;
 
 namespace TodoApp.Helpers
 {
-   public class RelayComand : ICommand
+   public class RelayCommand : ICommand
     {
         private readonly Action<object> _execute;
         
-        public RelayComand (Action<object> execute)
+        public RelayCommand (Action<object> execute)
         {
             _execute = execute;
         }
