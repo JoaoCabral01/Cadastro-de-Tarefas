@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace TodoApp.Helpers
+namespace CadastrodeTarefas.Helpers
 {
-   public class RelayCommand : ICommand
+    public class RelayCommand : ICommand
     {
         private readonly Action<object> _execute;
-        
-        public RelayCommand (Action<object> execute)
+
+        public RelayCommand(Action<object> execute)
         {
             _execute = execute;
         }
@@ -24,6 +24,5 @@ namespace TodoApp.Helpers
             _execute(parameter);
         }
     }
-              
-}
 
+}

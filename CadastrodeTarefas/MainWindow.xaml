@@ -1,40 +1,28 @@
 <Window
-    x:Class="TodoApp.MainWindow"
+    x:Class="CadastroDeTarefas.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:vm="using:TodoApp.ViewModels"
-    xmlns:models="using:TodoApp.Models">
-
-    <Window.DataContext>
-        <vm:MainViewModel />
-    </Window.DataContext>
+    xmlns:models="using:CadastroDeTarefas.Models">
 
     <StackPanel Padding="20" Spacing="12">
 
-        <TextBox PlaceholderText="Nova tarefa"
-                 Text="{Binding TextoNovaTarefa, Mode=TwoWay}"/>
+        <TextBox
+            PlaceholderText="Nome da tarefa"
+            Text="{Binding NomeTarefa, Mode=TwoWay}" />
 
         <Button Content="Adicionar"
-                Command="{Binding AdicionarCommand}" />
+                Click="Adicionar_Click" />
 
         <ListView ItemsSource="{Binding Tarefas}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="models:Tarefa">
-                    <StackPanel Orientation="Horizontal" Spacing="16">
-
-                        <CheckBox IsChecked="{x:Bind Concluida, Mode=TwoWay}"
-                                  Command="{x:Bind DataContext.AlternarConcluidaCommand, ElementName=root}"
-                                  CommandParameter="{x:Bind}"/>
-
-                        <TextBlock Text="{x:Bind Descricao}" />
-
-                        <Button Content="Excluir"
-                                Command="{x:Bind DataContext.ExcluirCommand, ElementName=root}"
-                                CommandParameter="{x:Bind Id}" />
-
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <TextBlock Text="{Binding Id}" />
+                        <TextBlock Text="{Binding Nome}" />
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
     </StackPanel>
 </Window>

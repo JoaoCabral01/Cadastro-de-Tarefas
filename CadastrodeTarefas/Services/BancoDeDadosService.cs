@@ -1,79 +1,84 @@
-﻿using TodoApp.Models;
+﻿using System.Collections.Generic;
 using Microsoft.Data.Sqlite;
-using System.Collections.Generic;
+using CadastroDeTarefas.Models;
 
-namespace TodoApp.Services
+namespace CadastroDeTarefas.Services
 {
-    public class  BandoDeDadosService
+    public class BancoDeDadosService
     {
         private readonly string _dbPath;
 
-        public BandoDeDadosService(string dbPath)
+        public BancoDeDadosService(string dbPath)
         {
             _dbPath = dbPath;
-            CriarBanco();
+            CriarBancoSeNaoExistir();
         }
 
-        private void CriarBanco()
+        private void CriarBancoSeNaoExistir()
         {
-           using var conexao = new SqliteConnection($"Data Source={_dbPath}");
-           string sql = @"
-                CREATE TABLE IF NOT EXISTS Tarefas (
-                    Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    Descricao TEXT NOT NULL,
-                    Concluida INTEGER NOT NULL
-                );";
+            using var conexao = new SqliteConnection($"Data Source={_dbPath}");
+            conexao.Open();
 
-           var  comando = new SqliteCommand(sql, conexao);
-            comando.ExecuteNonQuery();
+            var cmd = conexao.CreateCommand();
+            cmd.CommandText =
+            @"
+                CREATE TABLE IF NOT EXISTS Tarefas (
+	                Id INTEGER PRIMARY KEY AUTOINCREMENT,
+	                Nome TEXT NOT NULL,
+	                Concluida INTEGER NOT NULL
+                );
+            ";
+            cmd.ExecuteNonQuery();
+        }
+
+        public void Adicionar(Tarefa tarefa)
+        {
+            using var con = new SqliteConnection($"Data Source={_dbPath}");
+            con.Open();
+
+            var cmd = con.CreateCommand();
+            cmd.CommandText =
+            @"INSERT INTO Tarefas (Nome, Concluida)
+              VALUES ($nome, $concluida);";
+
+            cmd.Parameters.AddWithValue("$nome", tarefa.Nome);
+            cmd.Parameters.AddWithValue("$concluida", tarefa.Concluida ? 1 : 0);
+            cmd.ExecuteNonQuery();
         }
 
         public List<Tarefa> Listar()
         {
-            var lista = new List<Tarefa>();
-            using var conexao = new SqliteConnection($"Data Source={_dbPath}");
-            conexao.Open();
-            string sql = "SELECT Id, Descricao, Concluida FROM Tarefas;";
+            List<Tarefa> lista = new();
 
-            var comando = new SqliteCommand(sql, conexao);
-            var reader = comando.ExecuteReader();
+            using var con = new SqliteConnection($"Data Source={_dbPath}");
+            con.Open();
 
-            while (reader.Read())
+            var cmd = con.CreateCommand();
+            cmd.CommandText = "SELECT Id, Nome, Concluida FROM Tarefas;";
+
+            using var leitor = cmd.ExecuteReader();
+            while (leitor.Read())
             {
-                var tarefa = new Tarefa
+                lista.Add(new Tarefa
                 {
-                    Id = reader.GetInt32(0),
-                    Descricao = reader.GetString(1),
-                    Concluida = reader.GetInt32(2) == 1
-                };
-                lista.Add(tarefa);
+                    Id = leitor.GetInt32(0),
+                    Nome = leitor.GetString(1),
+                    Concluida = leitor.GetInt32(2) == 1
+                });
             }
 
             return lista;
         }
 
-        public void Atualizar(Tarefa tarefa)
+        public void Remover(int id)
         {
-            using var conexao = new SqliteConnection($"Data Source={_dbPath}");
-            conexao.Open();
+            using var con = new SqliteConnection($"Data Source={_dbPath}");
+            con.Open();
 
-            string sql = "UPDATE Tarefas SET Descricao = @Descricao, Concluida = @Concluida WHERE Id = @Id;";
-            var comando = new SqliteCommand(sql, conexao);
-            comando.Parameters.AddWithValue("@Descricao", tarefa.Descricao);
-            comando.Parameters.AddWithValue("@Concluida", tarefa.Concluida ? 1 : 0);
-            comando.Parameters.AddWithValue("@Id", tarefa.Id);
-            comando.ExecuteNonQuery();
-        }
-
-        public void Excluir(int id)
-        {
-            using var conexao = new SqliteConnection($"Data Source={_dbPath}");
-            conexao.Open();
-
-            string sql = "DELETE FROM Tarefas WHERE Id = @Id;";
-            var comando = new SqliteCommand(sql, conexao);
-            comando.Parameters.AddWithValue("@Id", id);
-            comando.ExecuteNonQuery();
+            var cmd = con.CreateCommand();
+            cmd.CommandText = @"DELETE FROM Tarefas WHERE Id = $id;";
+            cmd.Parameters.AddWithValue("$id", id);
+            cmd.ExecuteNonQuery();
         }
     }
 }

@@ -1,77 +1,40 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using TodoApp.Helpers;
-using TodoApp.Models;
-using TodoApp.Services;
+using CadastroDeTarefas.Models;
 
-namespace TodoApp.ViewModels
+namespace CadastroDeTarefas.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        private readonly BandoDeDadosService _db;
+        public ObservableCollection<Tarefa> Tarefas { get; set; } = new();
 
-        public ObservableCollection<Tarefa> Tarefas { get; } = new();
-
-        private string _textoNovaTarefa;
-        public string TextoNovaTarefa
+        private string _nomeTarefa;
+        public string NomeTarefa
         {
-            get => _textoNovaTarefa;
+            get => _nomeTarefa;
             set
             {
-                _textoNovaTarefa = value;
-                OnPropertyChanged();
+                _nomeTarefa = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NomeTarefa)));
             }
         }
 
-        public RelayCommand AdicionarTarefaCommand { get; }
-        public RelayCommand ExcluirCommand { get; }
-        public RelayCommand AlternarConcluidaCommand { get; }
+        private int _id = 1;
 
-        public MainViewModel()
+        public void AdicionarTarefa()
         {
-            _db = new BandoDeDadosService("tarefa.db");
-            AdicionarTarefaCommand = new RelayCommand(_ => Adicionar());
-            ExcluirCommand = new RelayCommand(t => Excluir((int)t));
-            AlternarConcluidaCommand = new RelayCommand(t => Alternar((Tarefa)t));
-            Carregar();
-        }
+            if (string.IsNullOrWhiteSpace(NomeTarefa))
+                return;
 
-        private void Carregar()
-        {
-            Tarefas.Clear();
-            foreach (var tarefa in _db.Listar())
+            Tarefas.Add(new Tarefa
             {
-                Tarefas.Add(tarefa);
-            }
-        }
+                Id = _id++,
+                Nome = NomeTarefa
+            });
 
-        private void Adicionar()
-        {
-            var tarefa = new Tarefa { Descricao = TextoNovaTarefa, Concluida = false };
-            _db.Atualizar(tarefa);
-            TextoNovaTarefa = "";
-            Carregar();
-        }
-
-        public void Excluir(int id)
-        {
-            _db.Excluir(id);
-            Carregar();
-        }
-
-        public void Alternar(Tarefa tarefa)
-        {
-            tarefa.Concluida = !tarefa.Concluida;
-            _db.Atualizar(tarefa);
-            Carregar();
+            NomeTarefa = "";
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string n = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(n));
-        }
-
     }
 }
