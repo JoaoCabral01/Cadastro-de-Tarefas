@@ -1,12 +1,55 @@
-﻿using System;
+﻿using TodoApp.Models;
+using Microsoft.Data.Sqlite;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CadastrodeTarefas.Services
+namespace TodoApp.Services
 {
-    internal class BancoDeDadosService
+    public class  BandoDeDadosService
     {
+        private readonly string _dbPath;
+
+        public BandoDeDadosService(string dbPath)
+        {
+            _dbPath = dbPath;
+            CriarBanco();
+        }
+
+        private void CriarBanco()
+        {
+           using var conexao = new SqliteConnection($"Data Source={_dbPath}");
+           string sql = @"
+                CREATE TABLE IF NOT EXISTS Tarefas (
+                    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    Descricao TEXT NOT NULL,
+                    Concluida INTEGER NOT NULL
+                );";
+
+           var  comando = new SqliteCommand(sql, conexao);
+            comando.ExecuteNonQuery();
+        }
+
+        public List<Tarefa> Listar()
+        {
+            var lista = new List<Tarefa>();
+            using var conexao = new SqliteConnection($"Data Source={_dbPath}");
+            conexao.Open();
+            string sql = "SELECT Id, Descricao, Concluida FROM Tarefas;";
+
+            var comando = new SqliteCommand(sql, conexao);
+            var reader = comando.ExecuteReader();
+
+            while (reader.Read())
+            {
+                var tarefa = new Tarefa
+                {
+                    Id = reader.GetInt32(0),
+                    Descricao = reader.GetString(1),
+                    Concluida = reader.GetInt32(2) == 1
+                };
+                lista.Add(tarefa);
+            }
+
+            return lista;
+        }
     }
 }
