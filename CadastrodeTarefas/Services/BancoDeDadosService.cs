@@ -51,5 +51,29 @@ namespace TodoApp.Services
 
             return lista;
         }
+
+        public void Atualizar(Tarefa tarefa)
+        {
+            using var conexao = new SqliteConnection($"Data Source={_dbPath}");
+            conexao.Open();
+
+            string sql = "UPDATE Tarefas SET Descricao = @Descricao, Concluida = @Concluida WHERE Id = @Id;";
+            var comando = new SqliteCommand(sql, conexao);
+            comando.Parameters.AddWithValue("@Descricao", tarefa.Descricao);
+            comando.Parameters.AddWithValue("@Concluida", tarefa.Concluida ? 1 : 0);
+            comando.Parameters.AddWithValue("@Id", tarefa.Id);
+            comando.ExecuteNonQuery();
+        }
+
+        public void Excluir(int id)
+        {
+            using var conexao = new SqliteConnection($"Data Source={_dbPath}");
+            conexao.Open();
+
+            string sql = "DELETE FROM Tarefas WHERE Id = @Id;";
+            var comando = new SqliteCommand(sql, conexao);
+            comando.Parameters.AddWithValue("@Id", id);
+            comando.ExecuteNonQuery();
+        }
     }
 }
