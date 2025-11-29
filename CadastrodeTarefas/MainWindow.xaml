@@ -2,9 +2,11 @@
     x:Class="CadastroDeTarefas.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:models="using:CadastroDeTarefas.Models">
+    xmlns:local="using:CadastroDeTarefas"
+    xmlns:models="using:CadastroDeTarefas.Models"
+    Title="Cadastro de Tarefas">
 
-    <StackPanel Padding="20" Spacing="12">
+    <StackPanel x:Name="RootPanel" Padding="20" Spacing="12">
 
         <TextBox
             PlaceholderText="Nome da tarefa"
@@ -15,10 +17,10 @@
 
         <ListView ItemsSource="{Binding Tarefas}">
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="models:Tarefa">
-                    <StackPanel Orientation="Horizontal" Spacing="12">
-                        <TextBlock Text="{Binding Id}" />
-                        <TextBlock Text="{Binding Nome}" />
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Spacing="12" Padding="6">
+                        <TextBlock Text="{Binding Id}" Margin="0,0,6,0"/>
+                        <TextBlock Text="{Binding Nome}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

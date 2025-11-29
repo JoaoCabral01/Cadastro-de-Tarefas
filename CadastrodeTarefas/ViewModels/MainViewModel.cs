@@ -6,7 +6,7 @@ namespace CadastroDeTarefas.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<Tarefa> Tarefas { get; set; } = new();
+        public ObservableCollection<Tarefa> Tarefas { get; } = new();
 
         private string _nomeTarefa;
         public string NomeTarefa
@@ -14,6 +14,7 @@ namespace CadastroDeTarefas.ViewModels
             get => _nomeTarefa;
             set
             {
+                if (_nomeTarefa == value) return;
                 _nomeTarefa = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NomeTarefa)));
             }
@@ -29,10 +30,10 @@ namespace CadastroDeTarefas.ViewModels
             Tarefas.Add(new Tarefa
             {
                 Id = _id++,
-                Nome = NomeTarefa
+                Nome = NomeTarefa.Trim()
             });
 
-            NomeTarefa = "";
+            NomeTarefa = string.Empty;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
