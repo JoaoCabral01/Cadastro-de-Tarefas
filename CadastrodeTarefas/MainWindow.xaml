@@ -39,6 +39,21 @@
                 Foreground="#E0E9F5"
                 Background="#10284F"/>
 
+            <DatePicker
+                Width="400"
+                SelectedDate="{Binding DataLimite, Mode=TwoWay}"
+                BorderBrush="#00AEEF"
+                Background="#10284F"
+                Foreground="White"/>
+
+            <TextBox
+                Width="80"
+                PlaceholderText="HH:MM"
+                Text="{Binding HoraLimite, Mode=TwoWay}"
+                BorderBrush="#00AEEF"
+                Foreground="White"
+                Background="#10284F"/>
+
             <Button
                 Content="Adicionar"
                 Width="100"
