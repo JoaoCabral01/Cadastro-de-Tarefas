@@ -79,7 +79,7 @@
                                 Content="Excluir"
                                 Background="#FF4C4C"
                                 Foreground="White"
-                                FontWeight="Bold"
+                                FontWeight="Black"
                                 Click="Excluir_Click"/>
                         </Grid>
                     </DataTemplate>
@@ -103,10 +103,16 @@
                     CornerRadius="300"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
-                <Image Source="/Assets/Image/Albon23.jpg"
+                <Image Source="/Assets/Image/ImagemAlbon.jpg"
+                       x:Name="ImagemAlbon"
                        Stretch="UniformToFill"
                        HorizontalAlignment="Center"
-                       VerticalAlignment="Center"/>
+                       VerticalAlignment="Center"
+                       RenderTransformOrigin="0.5,0.5">
+                    <Image.RenderTransform>
+                        <ScaleTransform x:Name="ScaleImagem" ScaleX="1" ScaleY="1"/>
+                    </Image.RenderTransform>
+                </Image>
             </Border>
             
         </Grid>
