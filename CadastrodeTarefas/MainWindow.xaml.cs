@@ -1,7 +1,8 @@
+using CadastroDeTarefas.Models;
+using CadastroDeTarefas.ViewModels;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
-using CadastroDeTarefas.ViewModels;
 
 namespace CadastroDeTarefas
 {
