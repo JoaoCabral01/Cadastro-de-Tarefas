@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows.Input;
 using CadastroDeTarefas.Models;
+using CadastroDeTarefas.Helpers;
 
 namespace CadastroDeTarefas.ViewModels
 {
@@ -35,6 +37,14 @@ namespace CadastroDeTarefas.ViewModels
 
             NomeTarefa = string.Empty;
         }
+
+        public ICommand ExcluirCommand => new RelayCommand(param =>
+        {
+            if (param is Tarefa tarefa)
+            {
+                Tarefas.Remove(tarefa);
+            }
+        });
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

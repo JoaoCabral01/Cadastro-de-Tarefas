@@ -8,7 +8,6 @@
     Title="Cadastro de Tarefas">
 
     <Grid Padding="20">
-
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -24,7 +23,6 @@
             Margin="0 0 0 20"/>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="10">
-
             <TextBox
                 Width="300"
                 PlaceholderText="Digite a tarefa..."
@@ -32,7 +30,6 @@
                 BorderBrush="#00AEEF"
                 Foreground="#E0E9F5"
                 Background="#10284F"/>
-
             <Button
                 Content="Adicionar"
                 Width="100"
@@ -61,20 +58,29 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
                             <TextBlock
                                 Text="{Binding Id}"
                                 Grid.Column="0"
                                 Foreground="#00AEEF"
-                                FontWeight="Bold"
-                                Margin="0 0 10 0"/>
+                                FontWeight="Black"
+                                Margin="0 0 20 0"/>
 
                             <TextBlock
                                 Text="{Binding Nome}"
                                 Grid.Column="1"
                                 Foreground="#E0E9F5"
                                 FontSize="18"/>
+
+                            <Button
+                                Grid.Column="2"
+                                Content="Excluir"
+                                Background="#FF4C4C"
+                                Foreground="White"
+                                FontWeight="Bold"
+                                Click="Excluir_Click"/>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -97,14 +103,12 @@
                     CornerRadius="300"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
-
                 <Image Source="/Assets/Image/Albon23.jpg"
                        Stretch="UniformToFill"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"/>
-
             </Border>
+            
         </Grid>
-
     </Grid>
 </Window>

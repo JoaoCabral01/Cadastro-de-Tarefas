@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace CadastrodeTarefas.Helpers
+namespace CadastroDeTarefas.Helpers
 {
-    public class RelayCommand : ICommand
+    public partial class RelayCommand : ICommand
     {
         private readonly Action<object> _execute;
 
@@ -14,15 +14,11 @@ namespace CadastrodeTarefas.Helpers
 
         public event EventHandler CanExecuteChanged;
 
-        public bool CanExecute(object parameter)
-        {
-            return true;
-        }
+        public bool CanExecute(object parameter) => true;
 
         public void Execute(object parameter)
         {
             _execute(parameter);
         }
     }
-
 }
