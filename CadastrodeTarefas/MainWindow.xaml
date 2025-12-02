@@ -7,7 +7,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Cadastro de Tarefas">
 
+    
     <Grid Padding="20">
+
+        <Grid.Background>
+            <ImageBrush ImageSource="/Assets/Image/PistaWillams.jpg"
+                        Opacity="0.2"
+                        Stretch="UniformToFill"/>
+        </Grid.Background>
+        
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
