@@ -91,13 +91,19 @@
                 HorizontalAlignment="Center"
                 Margin="0 0 0 10"/>
 
-            <Image Grid.Column="1"
-                   Source="/Assets/Image/WilllamsF12025.jpg"
-                   Stretch="Uniform"
-                   Width="650"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"/>
+            <Border Grid.Column="1"
+                    Width="400"
+                    Height="400"
+                    CornerRadius="300"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
 
+                <Image Source="/Assets/Image/Albon23.jpg"
+                       Stretch="UniformToFill"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+
+            </Border>
         </Grid>
 
     </Grid>
