@@ -7,15 +7,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Cadastro de Tarefas">
 
-    
+
     <Grid Padding="20">
 
         <Grid.Background>
+
             <ImageBrush ImageSource="/Assets/Image/PistaWillams.jpg"
                         Opacity="0.2"
                         Stretch="UniformToFill"/>
+
         </Grid.Background>
-        
         
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -32,6 +33,7 @@
             Margin="0 0 0 20"/>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="10">
+            
             <TextBox
                 Width="300"
                 PlaceholderText="Digite a tarefa..."
@@ -39,6 +41,7 @@
                 BorderBrush="#00AEEF"
                 Foreground="#E0E9F5"
                 Background="#10284F"/>
+            
             <Button
                 Content="Adicionar"
                 Width="100"
@@ -46,10 +49,12 @@
                 Background="#00AEEF"
                 Foreground="White"
                 FontWeight="Bold"/>
+            
         </StackPanel>
 
         <Grid Grid.Row="2" Margin="0 20 0 0">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
@@ -62,8 +67,11 @@
                 CornerRadius="8">
 
                 <ListView.ItemTemplate>
+                    
                     <DataTemplate>
+                        
                         <Grid Padding="10">
+                            
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition/>
@@ -85,19 +93,53 @@
 
                             <Button
                                 Grid.Column="2"
+                                Content="Já fiz"
+                                Background="#00AE3E"
+                                Foreground="White"
+                                FontWeight="Bold"
+                                Command="{Binding DataContext.JaFizCommand}"
+                                CommandParameter="{Binding}"/>
+
+                            <Button
+                                Grid.Column="2"
                                 Content="Excluir"
                                 Background="#FF4C4C"
                                 Foreground="White"
                                 FontWeight="Black"
                                 Click="Excluir_Click"/>
                         </Grid>
+                        
                     </DataTemplate>
+                    
+                </ListView.ItemTemplate>
+
+            </ListView>
+
+            <ListView
+                    Grid.Column="1"
+                    ItemsSource="{Binding TarefasFeitas}"
+                    Background="#0F1E2F"
+                    BorderBrush="#00AEEF"
+                    CornerRadius="8">
+                
+                <ListView.ItemTemplate>
+                    
+                    <DataTemplate>
+                        
+                        <TextBlock
+                                Text="{Binding Nome}"
+                                Foreground="#E0E9F5"
+                                FontSize="18"
+                                Padding="10"/>
+                        
+                    </DataTemplate>
+                    
                 </ListView.ItemTemplate>
 
             </ListView>
 
             <TextBlock
-                Grid.Column="1"
+                Grid.Column="2"
                 Text="Imagem do Carro de Alex Albon"
                 FontFamily="Comic Sans MS"
                 Foreground="#00AEEF"
@@ -106,24 +148,28 @@
                 HorizontalAlignment="Center"
                 Margin="0 0 0 10"/>
 
-            <Border Grid.Column="1"
+            <Border Grid.Column="2"
                     Width="400"
                     Height="400"
                     CornerRadius="300"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
+                
                 <Image Source="/Assets/Image/ImagemAlbon.jpg"
                        x:Name="ImagemAlbon"
                        Stretch="UniformToFill"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        RenderTransformOrigin="0.5,0.5">
+                    
                     <Image.RenderTransform>
                         <ScaleTransform x:Name="ScaleImagem" ScaleX="1" ScaleY="1"/>
                     </Image.RenderTransform>
+                    
                 </Image>
+                
             </Border>
-            
+
         </Grid>
     </Grid>
 </Window>

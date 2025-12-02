@@ -9,6 +9,7 @@ namespace CadastroDeTarefas.ViewModels
     public class MainViewModel : INotifyPropertyChanged
     {
         public ObservableCollection<Tarefa> Tarefas { get; } = new();
+        public ObservableCollection<Tarefa> TarefasFeitas { get; } = new();
 
         private string _nomeTarefa;
         public string NomeTarefa
@@ -32,7 +33,8 @@ namespace CadastroDeTarefas.ViewModels
             Tarefas.Add(new Tarefa
             {
                 Id = _id++,
-                Nome = NomeTarefa.Trim()
+                Nome = NomeTarefa.Trim(),
+                Concluida = false
             });
 
             NomeTarefa = string.Empty;
@@ -43,6 +45,17 @@ namespace CadastroDeTarefas.ViewModels
             if (param is Tarefa tarefa)
             {
                 Tarefas.Remove(tarefa);
+                TarefasFeitas.Remove(tarefa); 
+            }
+        });
+
+        public ICommand JaFizCommand => new RelayCommand(param =>
+        {
+            if (param is Tarefa tarefa)
+            {
+                Tarefas.Remove(tarefa);
+                tarefa.Concluida = true;
+                TarefasFeitas.Add(tarefa);
             }
         });
 
