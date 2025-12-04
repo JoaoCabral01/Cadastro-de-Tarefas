@@ -1,6 +1,6 @@
-# Cadastro de Tarefas – Aplicação WPF
+# Cadastro de Tarefas
 
-> Uma aplicação simples, rápida e elegante para gerenciamento de tarefas, desenvolvida em **C# / WPF** com o padrão **MVVM** e design inspirado nas cores da **Williams Racing**.
+> Uma aplicação simples, rápida e elegante para gerenciamento de tarefas, desenvolvida em **C# / WPF** com o padrão **MVVM**.
 
 ---
 
