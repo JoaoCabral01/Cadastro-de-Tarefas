@@ -90,6 +90,8 @@ public partial class RelayCommand : ICommand
 
     public void Execute(object? parameter) => _execute(parameter);
 }
+```
+---
 
 ## Banco de Dados (SQLite)
 
@@ -105,7 +107,7 @@ Remover tarefas pelo Id.
 
 Simples, leve e eficiente.
 
-##  Tecnologias Utilizadas
+Tecnologias Utilizadas
 
 C#
 
@@ -117,20 +119,18 @@ SQLite
 
 .NET 6/7
 
-📘 Como Executar o Projeto
+---
+  
+## Como Executar o Projeto
+### Clone o repositório
 
-1️⃣ Clone o repositório
 git clone https://github.com/seu-usuario/CadastroDeTarefas.git
 
-2️⃣ Abra no Visual Studio
+### Abra no Visual Studio
 
 Abra a solução .sln.
 
-3️⃣ Execute
+Execute
 
 Pressione F5 para rodar.
-
-Cadastro de Tarefas
-
-A identidade visual do projeto utiliza as cores clássicas da Williams Racing, trazendo uma sensação moderna e esportiva — perfeita para um app com foco em produtividade e visual limpo.
 
