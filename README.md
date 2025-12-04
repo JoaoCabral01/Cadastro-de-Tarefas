@@ -95,29 +95,29 @@ public partial class RelayCommand : ICommand
 
 ## Banco de Dados (SQLite)
 
-O serviço BancoDeDadosService é responsável por:
+### O serviço BancoDeDadosService é responsável por:
 
-Criar a tabela de tarefas, caso não exista;
+• Criar a tabela de tarefas, caso não exista;
 
-Inserir novas tarefas;
+• Inserir novas tarefas;
 
-Listar todas as tarefas armazenadas;
+• Listar todas as tarefas armazenadas;
 
-Remover tarefas pelo Id.
+• Remover tarefas pelo Id.
 
-Simples, leve e eficiente.
+• Simples, leve e eficiente.
 
-Tecnologias Utilizadas
+### Tecnologias Utilizadas
 
-C#
+• C#
 
-WPF / XAML
+• WPF / XAML
 
-MVVM
+• MVVM
 
-SQLite
+• SQLite
 
-.NET 6/7
+• .NET 6/7
 
 ---
   
@@ -128,9 +128,9 @@ git clone https://github.com/seu-usuario/CadastroDeTarefas.git
 
 ### Abra no Visual Studio
 
-Abra a solução .sln.
+Abra a solução .sln. 🠒 Execute 🠒 Pressione F5 para rodar.
 
-Execute
 
-Pressione F5 para rodar.
+
+
 
