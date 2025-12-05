@@ -41,7 +41,7 @@
 
             <DatePicker
                 Width="400"
-                SelectedDate="{Binding DataLimite, Mode=TwoWay}"
+                Date="{Binding DataLimite, Mode=TwoWay}"
                 BorderBrush="#00AEEF"
                 Background="#10284F"
                 Foreground="White"/>

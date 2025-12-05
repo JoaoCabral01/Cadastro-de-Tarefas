@@ -1,8 +1,12 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Windows.Input;
+﻿using CadastroDeTarefas.Helpers;
 using CadastroDeTarefas.Models;
-using CadastroDeTarefas.Helpers;
+using CadastroDeTarefas.Services;
+using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Windows.Input;
+using System.IO;
 
 namespace CadastroDeTarefas.ViewModels
 {
@@ -11,41 +15,96 @@ namespace CadastroDeTarefas.ViewModels
         public ObservableCollection<Tarefa> Tarefas { get; } = new();
         public ObservableCollection<Tarefa> TarefasFeitas { get; } = new();
 
+        private readonly BancoDeDadosService _db;
+
+        public MainViewModel()
+        {
+            string caminho = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "tarefas.db"
+            );
+
+            _db = new BancoDeDadosService(caminho);
+            CarregarTarefas();
+        }
+
+        public void CarregarTarefas()
+        {
+            var dados = _db.Listar();
+
+            foreach (var t in dados)
+            {
+                if (t.Concluida)
+                    TarefasFeitas.Add(t);
+                else
+                    Tarefas.Add(t);
+            }
+        }
+
         private string _nomeTarefa;
         public string NomeTarefa
         {
             get => _nomeTarefa;
             set
             {
-                if (_nomeTarefa == value) return;
                 _nomeTarefa = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NomeTarefa)));
+                OnPropertyChanged(nameof(NomeTarefa));
             }
         }
 
-        private int _id = 1;
+        private DateTimeOffset? _dataLimite;
+        public DateTimeOffset? DataLimite
+        {
+            get => _dataLimite;
+            set
+            {
+                _dataLimite = value;
+                OnPropertyChanged(nameof(DataLimite));
+            }
+        }
+
+        private string _horaLimite;
+        public string HoraLimite
+        {
+            get => _horaLimite;
+            set
+            {
+                _horaLimite = value;
+                OnPropertyChanged(nameof(HoraLimite));
+            }
+        }
 
         public void AdicionarTarefa()
         {
             if (string.IsNullOrWhiteSpace(NomeTarefa))
                 return;
 
-            Tarefas.Add(new Tarefa
+            var novaTarefa = new Tarefa
             {
-                Id = _id++,
                 Nome = NomeTarefa.Trim(),
-                Concluida = false
-            });
+                Concluida = false,
+                DataLimite = DataLimite,
+                HoraLimite = HoraLimite
+            };
+
+            _db.Adicionar(novaTarefa);
+
+            Tarefas.Add(novaTarefa);
 
             NomeTarefa = string.Empty;
+            DataLimite = null;
+            HoraLimite = string.Empty;
         }
+
 
         public ICommand ExcluirCommand => new RelayCommand(param =>
         {
             if (param is Tarefa tarefa)
             {
+                _db.Remover(tarefa.Id);
+
                 Tarefas.Remove(tarefa);
-                TarefasFeitas.Remove(tarefa); 
+                TarefasFeitas.Remove(tarefa);
             }
         });
 
@@ -53,12 +112,18 @@ namespace CadastroDeTarefas.ViewModels
         {
             if (param is Tarefa tarefa)
             {
-                Tarefas.Remove(tarefa);
                 tarefa.Concluida = true;
+                _db.Atualizar(tarefa);
+
+                Tarefas.Remove(tarefa);
                 TarefasFeitas.Add(tarefa);
             }
         });
-
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(string nome)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nome));
+        }
     }
 }

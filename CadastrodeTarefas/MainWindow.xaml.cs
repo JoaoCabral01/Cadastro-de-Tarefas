@@ -1,4 +1,3 @@
-using CadastroDeTarefas.Models;
 using CadastroDeTarefas.ViewModels;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -25,14 +24,6 @@ namespace CadastroDeTarefas
         private void Adicionar_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.AdicionarTarefa();
-        }
-
-        private void Excluir_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is Button btn && btn.DataContext is Models.Tarefa tarefa)
-            {
-                ViewModel.Tarefas.Remove(tarefa);
-            }
         }
 
         private void ImagemAlbon_PointerEntered(object sender, PointerRoutedEventArgs e)
