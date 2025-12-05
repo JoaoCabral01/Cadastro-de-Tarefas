@@ -25,21 +25,21 @@ Esse conjunto cria um visual refinado e esportivo, trazendo personalidade à apl
 
 ---
 
-## 📂 Estrutura do Projeto
+## Estrutura do Projeto
 
-📁 CadastroDeTarefas
-┣ 📁 Helpers
-│ ┗ 📄 RelayCommand.cs
-┣ 📁 Models
-│ ┗ 📄 Tarefa.cs
-┣ 📁 Services
-│ ┗ 📄 BancoDeDadosService.cs
-┣ 📁 ViewModels
-│ ┗ 📄 MainViewModel.cs
-┣ 📁 Views
-│ ┗ 📄 MainWindow.xaml
-┣ 📄 App.xaml
-┣ 📄 README.md
+ CadastroDeTarefas<br>
+┣ Helpers<br>
+│ ┗ RelayCommand.cs<br>
+┣ Models<br>
+│ ┗ Tarefa.cs<br>
+┣ Services<br>
+│ ┗ BancoDeDadosService.cs<br>
+┣ ViewModels<br>
+│ ┗ MainViewModel.cs<br>
+┣ Views<br>
+│ ┗ MainWindow.xaml<br>
+┣ App.xaml<br>
+┣ README.md<br>
 
 
 
